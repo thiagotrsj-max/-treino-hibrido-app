@@ -1,0 +1,485 @@
+{
+  "projeto": {
+    "nome": "Treino Híbrido V001",
+    "arquivo": "treino_hibrido_v006_especificacao.json",
+    "versao_da_especificacao": "006",
+    "data": "2026-08-10",
+    "idioma": "pt-BR",
+    "url_da_versao_atual": "https://treino-hibrido-app.trsj.chatgpt.site",
+    "descricao": "Aplicativo web de personal trainer tático híbrido, adaptável a diferentes pessoas, objetivos, profissões, interesses, ambientes e níveis de condicionamento.",
+    "objetivo_central": "Entregar um treino diário completo, incluindo aquecimento, treino principal, alternativas, registro, evolução e descanso, sem limitar a identidade visual ou o planejamento a categorias profissionais fixas."
+  },
+  "instrucoes_para_outra_ia": {
+    "objetivo": "Usar este JSON como especificação funcional e visual para criar ou evoluir um aplicativo equivalente em HTML, CSS e JavaScript responsivo.",
+    "diretrizes": [
+      "Não limitar os usuários a perfis fixos como policial, bailarina, operador tático ou perfil geral.",
+      "Interpretar automaticamente a combinação de profissão, rotina, esporte, interesses, objetivos e preferências informada pelo usuário.",
+      "Manter a entrevista inicial curta e agradável.",
+      "Permitir múltiplas escolhas quando as respostas puderem coexistir.",
+      "Manter escolhas únicas apenas quando a combinação gerar contradição, como nível atual e quantidade de dias por semana.",
+      "Salvar dados por perfil e preservar histórico, cargas, corridas e dias concluídos.",
+      "Usar academia completa como modo padrão quando ela estiver entre os ambientes selecionados.",
+      "Sempre incluir aquecimento antes do treino principal, exceto em dias de descanso.",
+      "Tratar descanso como parte do planejamento semanal e permitir registrá-lo.",
+      "Usar linguagem direta, motivadora e profissional, como um personal trainer tático híbrido."
+    ]
+  },
+  "publico": {
+    "abrangencia": "Universal e adaptativa",
+    "exemplos_nao_limitantes": [
+      "atletas recreativos",
+      "profissionais de segurança",
+      "bailarinos e artistas",
+      "corredores",
+      "praticantes de musculação",
+      "pessoas iniciantes",
+      "pessoas retornando após pausa",
+      "operadores táticos",
+      "usuários com rotina variável"
+    ],
+    "regra": "Os exemplos servem somente como contexto semântico. O sistema deve aceitar uma infinidade de profissões e interesses."
+  },
+  "entrevista_inicial": {
+    "principio": "Poucas perguntas, respostas rápidas e resultado imediato.",
+    "etapas": [
+      {
+        "ordem": 1,
+        "titulo": "Identificação",
+        "campos": [
+          {
+            "id": "name",
+            "tipo": "texto",
+            "rotulo": "Como podemos chamar você?",
+            "obrigatorio": true
+          }
+        ]
+      },
+      {
+        "ordem": 2,
+        "titulo": "Direção do treino",
+        "campos": [
+          {
+            "id": "goals",
+            "tipo": "multipla_escolha",
+            "rotulo": "Seus objetivos",
+            "obrigatorio": true,
+            "minimo": 1,
+            "opcoes": [
+              { "valor": "operational", "texto": "Condicionamento" },
+              { "valor": "hybrid", "texto": "Força" },
+              { "valor": "aesthetic", "texto": "Estética" },
+              { "valor": "taf", "texto": "Desempenho" }
+            ]
+          },
+          {
+            "id": "level",
+            "tipo": "escolha_unica",
+            "rotulo": "Seu momento atual",
+            "obrigatorio": true,
+            "opcoes": [
+              { "valor": "beginner", "texto": "Começando" },
+              { "valor": "return", "texto": "Retornando" },
+              { "valor": "intermediate", "texto": "Em evolução" },
+              { "valor": "advanced", "texto": "Avançado" }
+            ]
+          }
+        ]
+      },
+      {
+        "ordem": 3,
+        "titulo": "Disponibilidade e identidade",
+        "campos": [
+          {
+            "id": "days",
+            "tipo": "escolha_unica",
+            "rotulo": "Quantos dias você quer treinar?",
+            "obrigatorio": true,
+            "opcoes": [2, 3, 4, 5]
+          },
+          {
+            "id": "locations",
+            "tipo": "multipla_escolha",
+            "rotulo": "Onde costuma treinar?",
+            "obrigatorio": true,
+            "minimo": 1,
+            "opcoes": [
+              { "valor": "full", "texto": "Academia" },
+              { "valor": "bodyweight", "texto": "Casa" },
+              { "valor": "operational", "texto": "Ao ar livre" },
+              { "valor": "limited", "texto": "Varia bastante" }
+            ]
+          },
+          {
+            "id": "identity",
+            "tipo": "texto_livre",
+            "rotulo": "Conte algo sobre você",
+            "placeholder": "Sua rotina, profissão, esporte ou interesse...",
+            "obrigatorio": false,
+            "maximo_de_caracteres": 160
+          }
+        ]
+      },
+      {
+        "ordem": 4,
+        "titulo": "Resultado automático",
+        "entregas": [
+          "nome do plano",
+          "resumo dos objetivos combinados",
+          "frequência semanal",
+          "ambientes disponíveis",
+          "nível atual",
+          "oito combinações de identidade visual"
+        ]
+      }
+    ]
+  },
+  "regras_de_adaptacao": {
+    "objetivos_multiplos": {
+      "regra": "Quando houver mais de um objetivo, gerar um plano multidisciplinar e usar hybrid como categoria técnica interna para preservar compatibilidade.",
+      "exibicao": "Mostrar todos os objetivos selecionados ao usuário, unidos por +."
+    },
+    "ambientes_multiplos": {
+      "regra": "Guardar todos os ambientes selecionados.",
+      "modo_padrao": "Se academia estiver selecionada, usar full. Caso contrário, usar o primeiro ambiente selecionado.",
+      "alternativas": "Permitir trocar o modo da sessão antes de concluir o dia."
+    },
+    "nivel": {
+      "beginner_ou_return": "Reduzir volume e trabalhar predominantemente em RPE 6–7.",
+      "intermediate": "Usar volume padrão e progressão controlada.",
+      "advanced": "Aumentar volume quando houver boa recuperação e manter RPE planejado."
+    },
+    "frequencia": {
+      "2_dias": ["segunda", "quinta"],
+      "3_dias": ["segunda", "quarta", "sexta"],
+      "4_dias": ["segunda", "terça", "quinta", "sábado"],
+      "5_dias": ["segunda", "terça", "quarta", "sexta", "sábado"],
+      "demais_dias": "Descanso programado"
+    }
+  },
+  "identidade_visual": {
+    "conceito": "A aparência nasce do texto e das escolhas do usuário, não de categorias fechadas.",
+    "entradas_semanticas": [
+      "nome",
+      "profissão ou rotina",
+      "esporte ou interesse",
+      "objetivos selecionados",
+      "ambientes selecionados"
+    ],
+    "comportamento": {
+      "termos_leves": "Podem favorecer fundos claros, contraste suave e cores elegantes.",
+      "termos_intensos_ou_taticos": "Podem favorecer fundos escuros, contraste forte e acentos sóbrios.",
+      "sem_sinal_claro": "Gerar identidade neutra e moderna.",
+      "variacoes": 8,
+      "regra_de_diversidade": "Alternar combinações claras e escuras e deslocar matiz e cor secundária para que as oito opções sejam visualmente distintas."
+    },
+    "tokens_por_paleta": [
+      "background",
+      "surface",
+      "surface_secondary",
+      "line",
+      "text",
+      "muted",
+      "accent",
+      "accent_secondary",
+      "success",
+      "warning",
+      "danger"
+    ],
+    "cores_exibidas_na_previa": [
+      "background",
+      "surface",
+      "surface_secondary",
+      "accent",
+      "accent_secondary",
+      "success",
+      "warning",
+      "text"
+    ]
+  },
+  "navegacao": {
+    "abas": [
+      {
+        "id": "hoje",
+        "nome": "Treino do dia",
+        "conteudo": ["data", "aquecimento", "treino principal", "modo", "progresso", "salvamento"]
+      },
+      {
+        "id": "semana",
+        "nome": "Guia semanal",
+        "conteudo": ["sete dias", "treinos", "corridas", "descansos", "situação de cada dia"]
+      },
+      {
+        "id": "evolucao",
+        "nome": "Evolução",
+        "conteudo": ["cargas", "RPE", "recordes", "indicadores do TAF", "linha de base"]
+      },
+      {
+        "id": "historico",
+        "nome": "Histórico",
+        "conteudo": ["treinos salvos", "descansos registrados", "corridas independentes"]
+      },
+      {
+        "id": "perfis",
+        "nome": "Perfis",
+        "conteudo": ["selecionar perfil", "criar novo perfil por entrevista"]
+      }
+    ]
+  },
+  "treino_diario": {
+    "existencia": "Todos os sete dias da semana devem possuir uma programação, incluindo descanso.",
+    "estrutura": [
+      {
+        "bloco": "aquecimento",
+        "obrigatorio": true,
+        "excecao": "descanso",
+        "itens_sugeridos": [
+          "cardio leve",
+          "mobilidade dinâmica",
+          "ativação específica",
+          "série de aproximação"
+        ]
+      },
+      {
+        "bloco": "treino_principal",
+        "campos_por_exercicio": [
+          "nome",
+          "categoria",
+          "prescrição",
+          "carga sugerida",
+          "carga ou resultado realizado",
+          "RPE",
+          "concluído"
+        ]
+      },
+      {
+        "bloco": "finalizacao",
+        "regra": "O botão de salvar definitivamente só é liberado quando aquecimento e treino principal estiverem 100% concluídos."
+      }
+    ],
+    "modos": [
+      {
+        "id": "full",
+        "nome": "Academia completa",
+        "papel": "padrão"
+      },
+      {
+        "id": "limited",
+        "nome": "Equipamento limitado",
+        "papel": "alternativo"
+      },
+      {
+        "id": "bodyweight",
+        "nome": "Peso corporal ou casa",
+        "papel": "alternativo"
+      },
+      {
+        "id": "operational",
+        "nome": "Operacional ou ao ar livre",
+        "papel": "alternativo"
+      }
+    ],
+    "acoes": [
+      "marcar aquecimento",
+      "marcar exercício",
+      "registrar carga",
+      "registrar RPE",
+      "trocar exercício por equivalente",
+      "reduzir intensidade",
+      "aumentar progressão quando permitido",
+      "salvar treino concluído",
+      "registrar descanso"
+    ]
+  },
+  "salvamento_e_bloqueio": {
+    "rascunho": "As marcações, cargas e RPE são salvos localmente durante a execução para permitir continuar depois.",
+    "conclusao": "Após salvar totalmente o treino ou registrar o descanso, criar uma fotografia imutável da sessão.",
+    "bloqueio": "O dia concluído fica bloqueado contra alterações acidentais.",
+    "historico": "A sessão concluída aparece no histórico com data, tipo, exercícios e registros.",
+    "escopo": "Separado por perfil e por data."
+  },
+  "corridas_independentes": {
+    "descricao": "Permitir registrar corridas que não fazem parte do treino principal do dia.",
+    "campos": [
+      "data",
+      "distancia_km",
+      "tempo",
+      "RPE",
+      "terreno"
+    ],
+    "destino": "Histórico e evolução do perfil ativo."
+  },
+  "perfis": {
+    "multiusuario": true,
+    "escopo_atual": "Perfis independentes no mesmo navegador e aparelho.",
+    "campos": [
+      "id",
+      "nome",
+      "goals",
+      "goal_interno",
+      "level",
+      "days",
+      "identity",
+      "locations",
+      "defaultMode",
+      "theme",
+      "state",
+      "taf"
+    ],
+    "isolamento": "Cada perfil possui seu próprio treino adaptado, cargas, RPE, corridas, evolução, histórico e dias bloqueados.",
+    "compatibilidade": "Perfis antigos sem arrays goals e locations continuam válidos por meio dos campos goal e defaultMode."
+  },
+  "modelo_de_dados": {
+    "app": {
+      "activeId": "string",
+      "profiles": "Profile[]"
+    },
+    "Profile": {
+      "id": "string",
+      "name": "string",
+      "goals": "string[]",
+      "goal": "hybrid | taf | aesthetic | operational",
+      "level": "beginner | return | intermediate | advanced",
+      "days": "2 | 3 | 4 | 5",
+      "identity": "string",
+      "locations": "string[]",
+      "defaultMode": "full | limited | bodyweight | operational",
+      "theme": "Theme",
+      "state": "ProfileState",
+      "taf": "TafRecord[]"
+    },
+    "Theme": {
+      "bg": "color",
+      "surface": "color",
+      "surface2": "color",
+      "line": "color",
+      "text": "color",
+      "muted": "color",
+      "accent": "color",
+      "accent2": "color",
+      "ok": "color",
+      "warn": "color",
+      "danger": "color",
+      "light": "boolean"
+    },
+    "ProfileState": {
+      "days": "Record<ISODate, DayState>",
+      "sessions": "Record<ISODate, SessionSnapshot>",
+      "runs": "Run[]"
+    },
+    "DayState": {
+      "mode": "string",
+      "done": "Record<string, boolean>",
+      "warmDone": "Record<string, boolean>",
+      "loads": "Record<string, string>",
+      "rpe": "Record<string, number | string>",
+      "swaps": "Record<string, number>"
+    },
+    "SessionSnapshot": {
+      "date": "string",
+      "completedAt": "ISODateTime",
+      "mode": "string",
+      "title": "string",
+      "profile": "string",
+      "type": "strength | run | rest",
+      "exercises": "ExerciseResult[]"
+    },
+    "Run": {
+      "date": "string",
+      "dateKey": "ISODate",
+      "distance": "string",
+      "time": "string",
+      "rpe": "string",
+      "terrain": "string"
+    }
+  },
+  "persistencia": {
+    "implementacao_atual": "localStorage",
+    "vantagem": "Funciona sem cadastro remoto e mantém dados no aparelho.",
+    "limitacao": "Os dados não sincronizam automaticamente entre aparelhos ou pessoas.",
+    "evolucao_recomendada": "Adicionar autenticação e banco de dados para sincronização, compartilhamento controlado e backup."
+  },
+  "requisitos_de_experiencia": [
+    "Layout mobile-first e responsivo.",
+    "Botões grandes e fáceis de usar durante o treino.",
+    "Indicadores de progresso do aquecimento e do treino principal.",
+    "Feedback imediato após cada ação.",
+    "Contraste adequado nas versões claras e escuras.",
+    "Acessibilidade por teclado e rótulos para controles.",
+    "Nenhuma pergunta desnecessária no primeiro acesso.",
+    "O usuário deve conseguir iniciar um treino rapidamente."
+  ],
+  "criterios_de_aceitacao": [
+    "É possível marcar dois ou mais objetivos na entrevista.",
+    "É possível marcar dois ou mais ambientes de treino.",
+    "É impossível avançar sem ao menos um objetivo, um nível, uma frequência e um ambiente.",
+    "O resultado mostra todos os objetivos e ambientes escolhidos.",
+    "São apresentadas oito combinações de tema realmente distintas.",
+    "A prévia de cada tema representa oito cores principais.",
+    "Um novo perfil não altera os dados de outro perfil.",
+    "Todo dia da semana possui treino, corrida ou descanso planejado.",
+    "Dias de treino sempre exibem aquecimento antes do bloco principal.",
+    "O treino incompleto permanece como rascunho.",
+    "O treino 100% concluído pode ser salvo e bloqueia o dia.",
+    "O descanso pode ser registrado e bloqueia o dia.",
+    "Corridas independentes podem ser salvas separadamente.",
+    "Perfis criados em versões anteriores continuam funcionando."
+  ],
+  "historico_de_decisoes": [
+    {
+      "versao": "001",
+      "decisao": "Criar a primeira versão do treinador tático híbrido."
+    },
+    {
+      "versao": "002",
+      "decisao": "Incluir aquecimento obrigatório antes do treino principal."
+    },
+    {
+      "versao": "003",
+      "decisao": "Adicionar salvamento definitivo, bloqueio do dia e novos perfis."
+    },
+    {
+      "versao": "004",
+      "decisao": "Planejar todos os dias da semana, incluindo descanso, e registrar cada dia."
+    },
+    {
+      "versao": "005",
+      "decisao": "Criar entrevista inicial curta e identidade visual automática sem categorias profissionais fixas."
+    },
+    {
+      "versao": "006",
+      "decisao": "Permitir múltiplos objetivos e ambientes e ampliar para oito combinações de paleta."
+    }
+  ],
+  "proximas_evolucoes_sugeridas": [
+    {
+      "prioridade": 1,
+      "recurso": "Conta e sincronização",
+      "descricao": "Autenticação, banco de dados e backup entre aparelhos."
+    },
+    {
+      "prioridade": 2,
+      "recurso": "Motor adaptativo semanal",
+      "descricao": "Ajustar volume, exercícios e carga futura usando conclusão, RPE, dor, sono e disposição."
+    },
+    {
+      "prioridade": 3,
+      "recurso": "Editor de treino",
+      "descricao": "Permitir que usuário ou treinador edite séries, repetições e exercícios antes de iniciar."
+    },
+    {
+      "prioridade": 4,
+      "recurso": "Relatórios e gráficos",
+      "descricao": "Exibir tendências de cargas, volume, frequência, corrida e indicadores do TAF."
+    },
+    {
+      "prioridade": 5,
+      "recurso": "Integrações",
+      "descricao": "Exportar a programação para Google Calendar e evolução para Google Sheets."
+    },
+    {
+      "prioridade": 6,
+      "recurso": "Compartilhamento",
+      "descricao": "Permitir convite e acompanhamento por treinador com permissões controladas."
+    }
+  ]
+}
