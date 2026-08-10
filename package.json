@@ -1,0 +1,13 @@
+{
+  "name": "treino-hibrido-app",
+  "version": "0.0.6",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
+
