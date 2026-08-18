@@ -7,15 +7,18 @@ Aplicativo web de personal trainer híbrido e adaptativo, com foco em força, co
 - [GitHub Pages](https://thiagotrsj-max.github.io/-treino-hibrido-app/)
 - [Sites](https://treino-hibrido-app.trsj.chatgpt.site)
 
-## Recursos
+## Recursos da V002
 
-- Entrevista inicial curta com múltiplos objetivos e ambientes de treino.
-- Perfis independentes com identidade visual personalizada.
-- Oito combinações automáticas de paleta clara e escura.
+- Entrevista inicial equilibrada com idade, peso, altura e IMC de referência.
+- Objetivos múltiplos com definição de uma prioridade principal.
+- Registro de experiência, restrições, dias disponíveis, duração e ambientes.
+- Perfis independentes com identidade visual e oito paletas personalizadas.
 - Planejamento para todos os dias da semana, incluindo descanso.
 - Aquecimento obrigatório antes do treino principal.
-- Academia completa como modo padrão e opções alternativas.
-- Registro de cargas, resultados, RPE e exercícios concluídos.
+- Academia completa como padrão e modos alternativos.
+- Três seções organizadas: treino principal, calistenia e condicionamento.
+- Links de vídeos para auxiliar a execução de cada exercício.
+- Registro de cargas, resultados, RPE e complementos concluídos.
 - Salvamento do treino completo com bloqueio do dia.
 - Registro independente de corridas.
 - Histórico e acompanhamento de evolução por perfil.
@@ -51,10 +54,6 @@ npm run validate
 ## Persistência atual
 
 Os perfis e registros são armazenados em `localStorage`. Assim, os dados permanecem separados por navegador e aparelho. Sincronização entre dispositivos exigirá autenticação e banco de dados em uma evolução futura.
-
-## Especificação
-
-O arquivo `docs/especificacao-v006.json` reúne os requisitos funcionais, modelo de dados, regras de adaptação, identidade visual, critérios de aceitação e próximas evoluções sugeridas.
 
 ## Privacidade
 
