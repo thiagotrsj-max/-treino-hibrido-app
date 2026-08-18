@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build:pages": "node scripts/export-static.mjs",
     "validate": "node scripts/validate.mjs"
   },
   "engines": {
     "node": ">=18"
   }
 }
-
