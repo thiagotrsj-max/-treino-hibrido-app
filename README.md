@@ -2,9 +2,10 @@
 
 Aplicativo web de personal trainer híbrido e adaptativo, com foco em força, condicionamento, estética, desempenho e preparação operacional.
 
-## Versão publicada
+## Versões publicadas
 
-[Abrir o aplicativo](https://treino-hibrido-app.trsj.chatgpt.site)
+- [GitHub Pages](https://thiagotrsj-max.github.io/-treino-hibrido-app/)
+- [Sites](https://treino-hibrido-app.trsj.chatgpt.site)
 
 ## Recursos
 
@@ -26,21 +27,24 @@ Aplicativo web de personal trainer híbrido e adaptativo, com foco em força, co
 ├── docs/
 │   └── especificacao-v006.json
 ├── scripts/
+│   ├── export-static.mjs
 │   └── validate.mjs
 ├── worker/
 │   └── index.js
+├── index.html
 ├── .gitignore
 ├── package.json
 └── README.md
 ```
 
-O aplicativo completo está em `worker/index.js`. Ele exporta uma função `fetch` no formato de JavaScript Worker e entrega a interface HTML, CSS e JavaScript ao navegador.
+O aplicativo completo está em `worker/index.js`. O arquivo `index.html` é a versão estática gerada para o GitHub Pages.
 
 ## Verificação
 
 Requer Node.js 18 ou superior.
 
 ```bash
+npm run build:pages
 npm run validate
 ```
 
@@ -54,5 +58,4 @@ O arquivo `docs/especificacao-v006.json` reúne os requisitos funcionais, modelo
 
 ## Privacidade
 
-Este repositório é privado. O código contém um perfil inicial e resultados de treino usados na personalização da versão atual.
-
+A versão pública não contém perfil pessoal pré-carregado. Cada visitante cria seus próprios perfis e os dados ficam somente no `localStorage` do respectivo navegador.
