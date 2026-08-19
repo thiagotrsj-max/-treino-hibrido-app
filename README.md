@@ -1,23 +1,27 @@
 # Treino Híbrido
 
-Aplicativo web de personal trainer híbrido e adaptativo, com foco em força, condicionamento, estética, desempenho e preparação operacional.
+Aplicativo web de personal trainer híbrido e adaptativo, com prescrição personalizada para força, desempenho, hipertrofia, condicionamento, corrida, saúde e preparação operacional.
 
 ## Versões publicadas
 
 - [GitHub Pages](https://thiagotrsj-max.github.io/-treino-hibrido-app/)
 - [Sites](https://treino-hibrido-app.trsj.chatgpt.site)
 
-## Recursos da V002
+## Recursos da V003
 
-- Entrevista inicial equilibrada com idade, peso, altura e IMC de referência.
+- Motor com programas distintos para força, desempenho atlético, hipertrofia, emagrecimento, condicionamento, corrida, TAF, estética, operacional, mobilidade e saúde.
+- TAF somente quando escolhido explicitamente; desempenho atlético não é tratado como TAF.
+- Seleção semanal adaptada à prioridade, objetivos complementares e frequência disponível.
+- Volume e intensidade ajustados ao nível, duração, idade, IMC de referência e restrições informadas.
+- Métricas de evolução específicas para o objetivo principal.
+- Entrevista inicial com idade, peso, altura, experiência, restrições, frequência, duração e ambientes.
 - Objetivos múltiplos com definição de uma prioridade principal.
-- Registro de experiência, restrições, dias disponíveis, duração e ambientes.
 - Perfis independentes com identidade visual e oito paletas personalizadas.
 - Planejamento para todos os dias da semana, incluindo descanso.
-- Aquecimento obrigatório antes do treino principal.
+- Aquecimento antes do treino principal.
 - Academia completa como padrão e modos alternativos.
-- Três seções organizadas: treino principal, calistenia e condicionamento.
-- Links de vídeos para auxiliar a execução de cada exercício.
+- Seções de treino principal, calistenia e condicionamento.
+- Links de vídeos para auxiliar a execução dos exercícios.
 - Registro de cargas, resultados, RPE e complementos concluídos.
 - Salvamento do treino completo com bloqueio do dia.
 - Registro independente de corridas.
@@ -31,6 +35,7 @@ Aplicativo web de personal trainer híbrido e adaptativo, com foco em força, co
 │   └── especificacao-v006.json
 ├── scripts/
 │   ├── export-static.mjs
+│   ├── test-personalization.mjs
 │   └── validate.mjs
 ├── worker/
 │   └── index.js
