@@ -8,7 +8,7 @@ const source = scripts.at(-1)?.[1];
 if (!source) throw new Error("Script principal não encontrado");
 const cutoff = source.indexOf("\n      document.querySelectorAll('.mode')");
 if (cutoff < 0) throw new Error("Ponto de teste não encontrado");
-const engineSource = `${source.slice(0, cutoff)}\n;globalThis.__engine={planForDate,getConfig,primaryProgram,profileGoals};})();`;
+const engineSource = `${source.slice(0, cutoff)}\n;globalThis.__engine={planForDate,getConfig,primaryProgram,profileGoals,exerciseBank,programTemplates};})();`;
 
 function engineFor(profile) {
   const app = { activeId: profile.id, profiles: [profile] };
@@ -75,4 +75,19 @@ const conservative = engineFor(conservativeProfile);
 const conservativeWeek = week(conservative);
 assert.ok(conservativeWeek.filter((x) => x.type !== "rest").every((x) => x.items.length <= 5));
 
-console.log("Personalização validada em força, desempenho, corrida, hipertrofia, TAF e retorno conservador.");
+const bank = conservative.exerciseBank;
+const placeholderName = /^(EMOM|AMRAP|Cardio(?: zona 2)?|Zona 2|Circuito(?: de corpo inteiro)?|Técnica|Mobilidade(?: de quadril| de ombros)?|Educativos? de corrida)$/i;
+for (const [key, item] of Object.entries(bank)) {
+  assert.equal(placeholderName.test(item[0]), false, `O item ${key} ainda é método, zona ou categoria: ${item[0]}`);
+  assert.ok(item[2] && item[3], `O exercício ${item[0]} precisa de volume e intensidade explícitos`);
+}
+assert.equal("emom" in bank, false, "EMOM não pode existir como exercício");
+assert.equal("circuit" in bank, false, "Circuito não pode existir como exercício");
+assert.equal(bank.zone2[0], "Bicicleta ergométrica contínua", "Zona 2 precisa indicar uma modalidade concreta");
+
+const emomSession = conservative.programTemplates.conditioning[2];
+const emomNames = emomSession.keys.map((key) => bank[key][0]);
+assert.equal(emomNames.some((name) => /EMOM/i.test(name)), false, "EMOM deve ser método, não nome de exercício");
+assert.ok(emomSession.keys.every((key) => /Minuto \d/.test(bank[key][2])), "O EMOM precisa especificar exercício e minuto");
+
+console.log("Personalização e taxonomia validadas: exercícios, métodos e zonas estão separados.");
