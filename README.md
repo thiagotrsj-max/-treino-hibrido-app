@@ -2,50 +2,28 @@
 
 Aplicativo web de personal trainer híbrido e adaptativo, com prescrição personalizada para força, desempenho, hipertrofia, condicionamento, corrida, saúde e preparação operacional.
 
-## Versões publicadas
+## Versão publicada
 
 - [GitHub Pages](https://thiagotrsj-max.github.io/-treino-hibrido-app/)
-- [Sites](https://treino-hibrido-app.trsj.chatgpt.site)
 
-## Recursos da V003
+## Novidades da V004
 
-- Motor com programas distintos para força, desempenho atlético, hipertrofia, emagrecimento, condicionamento, corrida, TAF, estética, operacional, mobilidade e saúde.
+- Separação entre exercício, método e intensidade.
+- EMOM apresentado como método, com exercício, minuto, repetições e rodadas definidos.
+- Zona 2 apresentada como intensidade de uma modalidade concreta: bicicleta, esteira, corrida leve ou caminhada.
+- Modos alternativos também disponíveis nas sessões aeróbias.
+- Aquecimentos e mobilidade com movimentos executáveis em vez de rótulos genéricos.
+- Testes automáticos impedem que EMOM, circuito, técnica ou zona sejam cadastrados como exercício.
+
+## Personalização da V003
+
+- Programas distintos para força, desempenho atlético, hipertrofia, emagrecimento, condicionamento, corrida, TAF, estética, operacional, mobilidade e saúde.
 - TAF somente quando escolhido explicitamente; desempenho atlético não é tratado como TAF.
 - Seleção semanal adaptada à prioridade, objetivos complementares e frequência disponível.
 - Volume e intensidade ajustados ao nível, duração, idade, IMC de referência e restrições informadas.
 - Métricas de evolução específicas para o objetivo principal.
 - Entrevista inicial com idade, peso, altura, experiência, restrições, frequência, duração e ambientes.
-- Objetivos múltiplos com definição de uma prioridade principal.
-- Perfis independentes com identidade visual e oito paletas personalizadas.
-- Planejamento para todos os dias da semana, incluindo descanso.
-- Aquecimento antes do treino principal.
-- Academia completa como padrão e modos alternativos.
-- Seções de treino principal, calistenia e condicionamento.
-- Links de vídeos para auxiliar a execução dos exercícios.
-- Registro de cargas, resultados, RPE e complementos concluídos.
-- Salvamento do treino completo com bloqueio do dia.
-- Registro independente de corridas.
-- Histórico e acompanhamento de evolução por perfil.
-
-## Estrutura
-
-```text
-.
-├── docs/
-│   └── especificacao-v006.json
-├── scripts/
-│   ├── export-static.mjs
-│   ├── test-personalization.mjs
-│   └── validate.mjs
-├── worker/
-│   └── index.js
-├── index.html
-├── .gitignore
-├── package.json
-└── README.md
-```
-
-O aplicativo completo está em `worker/index.js`. O arquivo `index.html` é a versão estática gerada para o GitHub Pages.
+- Perfis independentes, planejamento diário, aquecimento, modos alternativos, registros de cargas, corridas, histórico e evolução.
 
 ## Verificação
 
@@ -56,10 +34,6 @@ npm run build:pages
 npm run validate
 ```
 
-## Persistência atual
+## Persistência e privacidade
 
-Os perfis e registros são armazenados em `localStorage`. Assim, os dados permanecem separados por navegador e aparelho. Sincronização entre dispositivos exigirá autenticação e banco de dados em uma evolução futura.
-
-## Privacidade
-
-A versão pública não contém perfil pessoal pré-carregado. Cada visitante cria seus próprios perfis e os dados ficam somente no `localStorage` do respectivo navegador.
+Os perfis e registros são armazenados em `localStorage`. Cada visitante cria seus próprios perfis, e os dados permanecem somente no navegador e aparelho utilizados.
