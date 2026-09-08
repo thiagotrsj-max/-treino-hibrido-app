@@ -10,7 +10,7 @@ html,body{margin:0;width:100%;height:100%;background:#f4f7fb;overflow:hidden}#ap
 </style>
 </head>
 <body>
-<iframe id="app" src="../missao-colegio-militar-v07/index.html?v08base=1" title="Missão Colégio Militar"></iframe>
+<iframe id="app" src="../missao-colegio-militar-v07/index.html?v08base=2" title="Missão Colégio Militar"></iframe>
 <script>
 (function(){
   const frame=document.getElementById('app');
@@ -18,19 +18,29 @@ html,body{margin:0;width:100%;height:100%;background:#f4f7fb;overflow:hidden}#ap
     try{
       const d=frame.contentDocument;
       if(!d)return;
-      const old=d.getElementById('v08-real-bank');
-      if(old)return;
+      if(d.getElementById('v08-real-bank'))return;
       const s=d.createElement('script');
       s.id='v08-real-bank';
-      s.src='../missao-colegio-militar-v08/real-questions.js?v=2';
+      s.src='../missao-colegio-militar-v08/real-questions.js?v=3';
       s.onload=function(){
         try{
           d.title='Missão Colégio Militar v0.8';
-          const hero=d.querySelector('.hero .tag');
-          if(hero)hero.textContent='PLATAFORMA DE PREPARAÇÃO • v0.8';
+          const hero=d.querySelector('.hero');
+          const tag=d.querySelector('.hero .tag');
+          if(tag)tag.textContent='PLATAFORMA DE PREPARAÇÃO • v0.8';
+          if(hero&&!d.getElementById('realBankOk')){
+            const b=d.createElement('div');
+            b.id='realBankOk';
+            b.textContent='✓ Banco real carregado • questões de provas anteriores';
+            b.style.cssText='display:inline-block;margin-top:10px;padding:6px 10px;border-radius:999px;background:#ecfdf3;color:#166534;font-size:12px;font-weight:800';
+            hero.appendChild(b);
+          }
         }catch(e){}
       };
-      s.onerror=function(){console.error('Falha ao carregar banco real v0.8');};
+      s.onerror=function(){
+        const hero=d.querySelector('.hero');
+        if(hero){const b=d.createElement('div');b.textContent='⚠ Falha ao carregar banco de questões reais';b.style.cssText='margin-top:10px;padding:8px;background:#fff1f1;color:#9b1c1c;border-radius:10px;font-weight:700';hero.appendChild(b)}
+      };
       d.body.appendChild(s);
     }catch(e){
       document.body.innerHTML='<div class="err"><h2>Não foi possível abrir a plataforma.</h2><p>Feche esta aba e abra novamente. Erro: '+String(e)+'</p></div>';
