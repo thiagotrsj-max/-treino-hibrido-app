@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#102f55">
+  <meta name="description" content="Missão Colégio Militar — treino com questões reais de provas anteriores.">
+  <title>Missão Colégio Militar v0.15 • Questões Reais</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand"><span class="brand-mark">🎯</span><div><b>Missão Colégio Militar</b><small>v0.15 • Questões Reais</small></div></div>
+      <div class="top-actions"><span id="cloudState" class="status">Verificando login…</span><button id="logoutBtn" class="btn ghost small hide">Sair</button></div>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <span class="eyebrow">PLATAFORMA DE PREPARAÇÃO</span>
+        <h1>Questões reais. Progresso real.</h1>
+        <p>Treino com provas anteriores verificadas, sem adaptação, sem repetição enquanto houver questões inéditas disponíveis.</p>
+      </div>
+      <div class="hero-badges">
+        <span class="chip">☁️ Supabase</span>
+        <span class="chip">🛡️ Anti-repetição</span>
+        <span class="chip">📚 Provas oficiais</span>
+      </div>
+    </section>
+
+    <section id="loginCard" class="panel login-panel">
+      <div class="section-head"><div><span class="eyebrow dark">ENTRAR</span><h2>Ambiente do aluno</h2><p>Use o mesmo usuário e senha cadastrados na nuvem.</p></div></div>
+      <div class="form-grid">
+        <label class="field"><span>Usuário</span><input id="studentUser" autocapitalize="none" autocomplete="username" placeholder="sarinha15"></label>
+        <label class="field"><span>Senha</span><input id="studentPass" type="password" autocomplete="current-password" placeholder="••••••••"></label>
+      </div>
+      <div class="actions"><button id="studentLoginBtn" class="btn primary">Entrar como aluno</button><button id="parentBtn" class="btn secondary">Painel dos responsáveis</button></div>
+      <div id="loginMsg"></div>
+    </section>
+
+    <section id="studentApp" class="hide">
+      <nav class="tabs" aria-label="Áreas do aplicativo">
+        <button class="tab active" data-view="home">Início</button>
+        <button class="tab" data-view="train">Treino real</button>
+        <button class="tab" data-view="exams">Provas</button>
+        <button class="tab" data-view="review">Revisão</button>
+        <button class="tab" data-view="progress">Desempenho</button>
+        <button class="tab" data-view="library">Acervo</button>
+      </nav>
+
+      <section id="view-home" class="view active-view">
+        <div class="panel welcome">
+          <div><span class="eyebrow dark">ALUNO</span><h2 id="studentName">Aluno</h2><p id="levelLabel">Carregando nível…</p></div>
+          <div class="pill">☁️ Sincronizado</div>
+        </div>
+        <div class="metric-grid">
+          <article class="metric"><span>Respostas na nuvem</span><strong id="totalN">0</strong></article>
+          <article class="metric"><span>Questões reais respondidas</span><strong id="realN">0</strong></article>
+          <article class="metric"><span>Aproveitamento real</span><strong id="realPct">0%</strong></article>
+          <article class="metric"><span>Questões reais inéditas prontas</span><strong id="unseenReady">—</strong></article>
+        </div>
+        <div class="grid2">
+          <article class="panel accent-panel"><span class="eyebrow dark">MISSÃO DE HOJE</span><h3>Resolver questões reais sem repetir</h3><p>O sistema marca a questão como vista assim que ela aparece. Enquanto existirem inéditas, ela não volta no treino.</p><button class="btn primary go" data-view="train">Começar treino real</button></article>
+          <article class="panel"><span class="eyebrow dark">BANCO REAL</span><div class="bank-stats"><div><b id="bankCatalogued">—</b><span>catalogadas</span></div><div><b id="bankReady">—</b><span>prontas agora</span></div><div><b id="bankExamCount">—</b><span>provas catalogadas</span></div></div><p class="muted">Questões visuais só entram quando a imagem original estiver disponível no app.</p></article>
+        </div>
+      </section>
+
+      <section id="view-train" class="view">
+        <div class="panel">
+          <div class="section-head"><div><span class="eyebrow dark">TREINO REAL</span><h2>Somente questões reais</h2><p>Escolha a matéria e receba questões inéditas de provas anteriores.</p></div><span class="pill">Sem adaptação</span></div>
+          <div class="form-grid three">
+            <label class="field"><span>Matéria</span><select id="trainSubject"><option value="">Misto</option><option>Matemática</option><option>Português</option></select></label>
+            <label class="field"><span>Quantidade</span><select id="trainAmount"><option value="5">5 questões</option><option value="10" selected>10 questões</option><option value="15">15 questões</option><option value="20">20 questões</option></select></label>
+            <div class="field action-field"><span>&nbsp;</span><button id="startRealBtn" class="btn primary">Gerar bloco inédito</button></div>
+          </div>
+          <div class="info-box"><b>Regra rígida:</b> questão exibida sai da fila de inéditas imediatamente. Repetição só acontece em prova específica ou quando você escolher revisar deliberadamente.</div>
+          <div id="trainMsg"></div>
+        </div>
+      </section>
+
+      <section id="view-exams" class="view">
+        <div class="panel">
+          <div class="section-head"><div><span class="eyebrow dark">PROVAS ANTERIORES</span><h2>Biblioteca por escola e ano</h2><p>Faça uma prova completa quando todo o caderno já estiver pronto no sistema, ou acompanhe o processamento dos demais.</p></div></div>
+          <div class="filters"><input id="examSearch" placeholder="Filtrar por escola ou ano…"><select id="examStatus"><option value="all">Todas</option><option value="ready">Prontas para prova completa</option><option value="processing">Em processamento</option></select></div>
+          <div id="examCatalog" class="exam-list"></div>
+        </div>
+      </section>
+
+      <section id="view-review" class="view">
+        <div class="panel">
+          <div class="section-head"><div><span class="eyebrow dark">REVISÃO INTELIGENTE</span><h2>Corrigir fraquezas sem decorar resposta</h2><p>O sistema prioriza assuntos em que houve erro, mas procura outra questão real inédita.</p></div></div>
+          <div class="form-grid three">
+            <label class="field"><span>Matéria</span><select id="reviewSubject"><option value="">Misto</option><option>Matemática</option><option>Português</option></select></label>
+            <label class="field"><span>Quantidade</span><select id="reviewAmount"><option value="5">5 questões</option><option value="10" selected>10 questões</option></select></label>
+            <div class="field action-field"><span>&nbsp;</span><button id="startReviewBtn" class="btn primary">Iniciar revisão</button></div>
+          </div>
+          <div id="reviewMsg"></div>
+        </div>
+      </section>
+
+      <section id="view-progress" class="view">
+        <div class="metric-grid">
+          <article class="metric"><span>Acertos reais</span><strong id="pCorrect">0</strong></article>
+          <article class="metric"><span>Erros reais</span><strong id="pWrong">0</strong></article>
+          <article class="metric"><span>Tempo médio / questão</span><strong id="pTime">—</strong></article>
+          <article class="metric"><span>Questões únicas vistas</span><strong id="pUnique">0</strong></article>
+        </div>
+        <div class="grid2">
+          <article class="panel"><span class="eyebrow dark">POR MATÉRIA</span><div id="subjectBars"></div></article>
+          <article class="panel"><span class="eyebrow dark">ERROS RECENTES</span><div id="recentErrors"></div></article>
+        </div>
+      </section>
+
+      <section id="view-library" class="view">
+        <div class="panel">
+          <span class="eyebrow dark">ACERVO</span><h2>Estado do banco de provas</h2>
+          <div class="metric-grid compact">
+            <article class="metric"><span>Questões catalogadas</span><strong id="libCatalogued">—</strong></article>
+            <article class="metric"><span>Questões prontas</span><strong id="libReady">—</strong></article>
+            <article class="metric"><span>Provas/anos</span><strong id="libExams">—</strong></article>
+            <article class="metric"><span>Instituições</span><strong id="libInstitutions">—</strong></article>
+          </div>
+          <div class="info-box"><b>Qualidade antes de quantidade:</b> uma questão só fica disponível para a aluna quando enunciado, alternativas e gabarito estão completos. Questões que dependem de imagem ficam bloqueadas até a imagem original estar disponível.</div>
+          <div id="librarySummary" class="school-summary"></div>
+        </div>
+      </section>
+
+      <section id="quizCard" class="panel quiz-panel hide">
+        <div class="quiz-top"><div><span id="quizMode" class="eyebrow dark">TREINO REAL</span><h2 id="quizTitle">Questões</h2></div><div class="quiz-timers"><span class="pill" id="questionTimer">00:00</span><span class="pill" id="totalTimer">Total 00:00</span></div></div>
+        <div class="progress-line"><i id="quizProgress"></i></div>
+        <div id="questionStage"></div>
+        <div id="answerFeedback"></div>
+        <div class="quiz-actions"><button id="quitQuizBtn" class="btn ghost">Sair do bloco</button><button id="nextQuestionBtn" class="btn primary">Confirmar resposta</button></div>
+      </section>
+
+      <section id="resultCard" class="panel hide"></section>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
